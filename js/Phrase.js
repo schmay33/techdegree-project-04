@@ -17,7 +17,7 @@ class Phrase {
                 newElem.innerHTML = '<li class="space"> </li>';
                 elem.append(newElem);
             } else {
-                newElem.innerHTML = `<li class="hide letter ${this.phrase[i]}">${this.phrase[i]}</li>`;
+                newElem.innerHTML = `<li class="hide letter ${this.phrase[i].toLowerCase()}">${this.phrase[i].toLowerCase()}</li>`;
                 elem.append(newElem);
             }
         }

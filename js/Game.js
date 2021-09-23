@@ -4,11 +4,11 @@
 class Game {
     constructor () {
         this.missed = 0;
-        this.phrases = [new Phrase("Phrase 1"), 
-                        new Phrase("Phrase 2"), 
-                        new Phrase("Phrase 3"), 
-                        new Phrase("Phrase 4"), 
-                        new Phrase("Phrase 5")];
+        this.phrases = [new Phrase("Phrase E"),
+                        new Phrase("Phrase A"), 
+                        new Phrase("Phrase G"), 
+                        new Phrase("Phrase R"), 
+                        new Phrase("Phrase W")];
         this.activePhrase = null;
     }
 
@@ -16,10 +16,27 @@ class Game {
      * Begins game by selecting a random phrase and displaying it to the user
      */
     startGame() {
+        document.querySelector("#phrase ul").innerHTML = "";
+        this.resetBoard();
         document.getElementById("game-over-message").innerHTML = "";
         document.getElementById("overlay").style.visibility = "hidden";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
+    }
+
+    resetBoard() {
+        const keys = document.getElementsByClassName("key");
+        for (let key of keys) {
+            key.disabled = false;
+            key.classList.remove("chosen");
+            key.classList.remove("wrong");
+        }
+
+        const hearts = document.querySelectorAll('img[alt="Lost Icon"');
+        for (let heart of hearts) {
+            heart.src = "images/liveHeart.png";
+            heart.alt = "Heart Icon";
+        }
     }
 
     /**
@@ -30,9 +47,25 @@ class Game {
         return this.phrases[Math.floor(Math.random()*this.phrases.length)];
     }
 
-    handleInteractions() {
-
-    }
+    /**
+     * Handles onscreen keyboard button clicks
+     * @param {HTMLButtonElement} button - The clicked button element
+     */
+    handleInteraction(button) {
+        button.disabled = true;
+        button.style.cursor = "not-allowed";
+        const letter = button.innerHTML;
+        if (this.activePhrase.checkLetter(letter)) {
+            button.classList.add("chosen");
+            this.activePhrase.showMatchedLetter(letter);
+            if(this.checkForWin()) {
+                this.gameOver(true);
+            }
+        } else {
+            button.classList.add("wrong");
+            this.removeLife();
+        }
+    };
 
     /**
      * Increases the value of the missed property
