@@ -16,7 +16,7 @@ class Game {
      * Begins game by selecting a random phrase and displaying it to the user
      */
     startGame() {
-        console.log('asdf');
+        document.getElementById("game-over-message").innerHTML = "";
         document.getElementById("overlay").style.visibility = "hidden";
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
@@ -34,15 +34,50 @@ class Game {
 
     }
 
+    /**
+     * Increases the value of the missed property
+     * Removes a life from the scoreboard
+     * Checks if player has remaining lives and ends game if player is out of lives
+     */
     removeLife() {
-
+        const image = document.querySelector('img[alt="Heart Icon"');
+        image.src = "images/lostHeart.png";
+        image.alt = "Lost Icon";
+        this.missed +=1;
+        if (this.missed === 5) this.gameOver(false);
     }
 
+    /**
+     * Checks for winning move
+     * @returns {boolean} - True if game has been won, false if game wasn't won
+     */
     checkForWin() {
-
+        const letters = document.getElementsByClassName("letter");
+        let count = 0;
+        for (let letter of letters) {
+            if (letter.classList.contains("hide")) {
+                count++;
+            }
+        }
+        return count > 0 ? false : true;
     }
 
-    gameOver() {
-
+    /**
+     * Displays game over message
+     * @param {boolean} gameWon - Whether or not the user won the game
+     */
+    gameOver(gameWon) {
+        document.getElementById("overlay").style.visibility = "visible";
+        const title = document.getElementById("game-over-message");
+        const start = document.querySelector(".start");
+        if(gameWon) {
+            start.classList.add("win");
+            start.classList.remove("lose");
+            title.innerHTML = "Game Won - Great Job!";
+        } else {
+            start.classList.remove("win");
+            start.classList.add('lose');
+            title.innerHTML = "Game Lost - Better luck next time!";
+        }
     }
 }

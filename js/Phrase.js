@@ -23,11 +23,28 @@ class Phrase {
         }
     }
 
-    checkLetter() {
-
+    /**
+     * Checks if passed letter is in the phrase
+     * @param {string} letter - Letter to check
+     * @returns {boolean} returns if letter was found
+     */
+    checkLetter(letter) {
+        if (this.phrase.includes(letter)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    showMatchedLetter() {
-
+    /**
+     * Displays passed letter on screen after a match is found
+     * @param {string} letter - letter to display
+     */
+    showMatchedLetter(letter) {
+        const arr = document.getElementsByClassName(letter);
+        for (let i of arr) {
+            i.classList.remove("hide");
+            i.classList.add("show");
+        }
     }
 }
