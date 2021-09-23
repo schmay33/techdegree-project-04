@@ -14,3 +14,13 @@ A player continues to select letters until they guess the phrase (and win), or m
 If the player completes the phrase before they run out of guesses, a winning screen appears. If the player guesses incorrectly five times, a losing screen appears.
 
 A player can guess a letter only once. After they’ve guessed a letter, your programming will need to disable that letter on the onscreen keyboard.
+
+
+##Updated CSS
+
+Added new background ground color to the game.
+
+Added Box Shadow to the letter css class.
+
+Added Box Shadow to the key css class.
+

@@ -16,7 +16,6 @@ class Game {
      * Begins game by selecting a random phrase and displaying it to the user
      */
     startGame() {
-        document.querySelector("#phrase ul").innerHTML = "";
         this.resetBoard();
         document.getElementById("game-over-message").innerHTML = "";
         document.getElementById("overlay").style.visibility = "hidden";
@@ -24,7 +23,12 @@ class Game {
         this.activePhrase.addPhraseToDisplay();
     }
 
+    /**
+     * Resets the game board to the default
+     */
     resetBoard() {
+        this.missed = 0;
+        document.querySelector("#phrase ul").innerHTML = "";
         const keys = document.getElementsByClassName("key");
         for (let key of keys) {
             key.disabled = false;
