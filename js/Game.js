@@ -31,6 +31,7 @@ class Game {
         document.querySelector("#phrase ul").innerHTML = "";
         const keys = document.getElementsByClassName("key");
         for (let key of keys) {
+            key.style.cursor = "pointer";
             key.disabled = false;
             key.classList.remove("chosen");
             key.classList.remove("wrong");
@@ -107,6 +108,7 @@ class Game {
         document.getElementById("overlay").style.visibility = "visible";
         const title = document.getElementById("game-over-message");
         const start = document.querySelector(".start");
+        this.activePhrase = null;
         if(gameWon) {
             start.classList.add("win");
             start.classList.remove("lose");
